@@ -1,0 +1,25 @@
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      -master
+
+
+jobs :
+  lint:
+    name: R un linters
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Prettify codes
+        uses: creyD/prettier_action@v4.3
+        with:
+          prettier_options: --write **/*.{js,md}
+          only_changed: True
